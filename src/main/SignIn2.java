@@ -1,6 +1,6 @@
 package main;
 
-import com.mysql.jdbc.Connection;
+
 import dbConnectionAndMethods.DB;
 
 import javax.swing.*;
@@ -12,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.HashMap;
