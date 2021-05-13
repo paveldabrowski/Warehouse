@@ -336,7 +336,7 @@ ON r.loader = l.YWN
 			</textField>
 			<image hAlign="Center">
 				<reportElement x="0" y="0" width="65" height="60" uuid="94883631-a913-43e2-b182-ab8d77d0181e"/>
-				<imageExpression><![CDATA["src/roadCard/invoice_logo.png"]]></imageExpression>
+				<imageExpression><![CDATA["src/roadcardreport/invoice_logo.png"]]></imageExpression>
 			</image>
 			<textField pattern="EEEEE dd MMMMM yyyy">
 				<reportElement x="430" y="0" width="124" height="20" uuid="3836ce65-eca3-4cad-a6de-b1818def0a2b"/>
@@ -388,7 +388,7 @@ ON r.loader = l.YWN
 			</textField>
 			<image>
 				<reportElement x="460" y="40" width="150" height="81" uuid="e6cbd28b-8327-4a27-997a-cb9a761397a2"/>
-				<imageExpression><![CDATA["src/roadCard/unnamed.png"]]></imageExpression>
+				<imageExpression><![CDATA["src/roadcardreport/unnamed.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="0" y="191" width="84" height="25" uuid="d0601e2f-1a39-49cd-aeb2-edad2c82b048">

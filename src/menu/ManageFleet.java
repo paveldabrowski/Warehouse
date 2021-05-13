@@ -3,12 +3,9 @@ package menu;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
+import db.DB;
 
-import dbConnectionAndMethods.DB;
-import menu.Menu;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.Connection;
@@ -16,7 +13,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.TreeMap;
 import java.util.Vector;
 
@@ -330,8 +326,8 @@ public class ManageFleet extends JPanel {
 			public void run() {
 				try {
 					TreeMap<String,String> map = new TreeMap<String, String>();
-					map.put("name", "Pawe³");
-					map.put("lastName", "D¹browski");
+					map.put("name", "Paweï¿½");
+					map.put("lastName", "Dï¿½browski");
 					map.put("id", "4");
 					map.put("login", "d");
 					map.put("YWN", "20205999");

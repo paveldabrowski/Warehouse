@@ -1,4 +1,4 @@
-package dbConnectionAndMethods;
+package db;
 
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,7 +9,6 @@ import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.Vector;
-import dbConnectionAndMethods.*;
 
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;

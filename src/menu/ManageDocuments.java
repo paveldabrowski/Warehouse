@@ -3,19 +3,12 @@ package menu;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import org.apache.log4j.BasicConfigurator;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.internal.LinkedTreeMap;
-
-import dbConnectionAndMethods.DB;
-import menu.Menu;
+import db.DB;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -24,12 +17,6 @@ import net.sf.jasperreports.engine.JasperReport;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Reader;
 import java.sql.Connection;
 
 import java.sql.PreparedStatement;
@@ -38,9 +25,7 @@ import java.sql.ResultSetMetaData;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Random;
-import java.util.Set;
 import java.util.TreeMap;
 import java.util.Vector;
 
@@ -587,8 +572,8 @@ public class ManageDocuments extends JPanel {
 			public void run() {
 				try {
 					TreeMap<String,String> map = new TreeMap<String, String>();
-					map.put("name", "Pawe³");
-					map.put("lastName", "D¹browski");
+					map.put("name", "Paweï¿½");
+					map.put("lastName", "Dï¿½browski");
 					map.put("id", "4");
 					map.put("login", "d");
 					map.put("YWN", "20205999");

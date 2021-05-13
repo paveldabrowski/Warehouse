@@ -1,7 +1,7 @@
 package main;
 
 
-import dbConnectionAndMethods.DB;
+import db.DB;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -18,11 +18,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.HashMap;
 
-public class SignIn2 extends JFrame {
+public class SignIn extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -5601895450135351693L;
 	private JPanel contentPane;
 	private JTextField loginTextField;
@@ -35,14 +32,12 @@ public class SignIn2 extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SignIn2 frame = new SignIn2();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+		EventQueue.invokeLater(() -> {
+			try {
+				SignIn frame = new SignIn();
+				frame.setVisible(true);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		});
 	}
@@ -50,7 +45,7 @@ public class SignIn2 extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public SignIn2() {
+	public SignIn() {
 		
 		
 		setAlwaysOnTop(true);

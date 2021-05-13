@@ -1,4 +1,4 @@
-package helpfulMethodsAndClasses;
+package utilities;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
-import javax.swing.JComponent;
 
 public interface StaticMethods {
 
@@ -17,7 +16,7 @@ public interface StaticMethods {
 	 * @param fontStyle
 	 * @param fontSize
 	 */
-	public static void setButtonsFont(ArrayList<JButton> componentList, String fontName, int fontStyle, int fontSize) {
+	static void setButtonsFont(ArrayList<JButton> componentList, String fontName, int fontStyle, int fontSize) {
 		ArrayList<JButton> result = componentList;
 		for (int i = 0; i < componentList.size(); i++)
 			componentList.get(i).setFont(new Font(fontName, fontStyle, fontSize));		
@@ -29,7 +28,7 @@ public interface StaticMethods {
 	 * @param width
 	 * @param height
 	 */
-	public static void setButtonsSize(ArrayList<JButton> componentList, int width, int height) {
+	static void setButtonsSize(ArrayList<JButton> componentList, int width, int height) {
 		ArrayList<JButton> result = componentList;
 		for(int i = 0; i < componentList.size(); i++ )
 			componentList.get(i).setPreferredSize(new Dimension(width, height));		
@@ -40,7 +39,7 @@ public interface StaticMethods {
 	 * @param componentList
 	 * @param componentColor
 	 */
-	public static void setButtonsColor(ArrayList<JButton> componentList, Color componentColor) {
+	static void setButtonsColor(ArrayList<JButton> componentList, Color componentColor) {
 		ArrayList<JButton> result = componentList;
 		for(int i = 0; i < componentList.size(); i++ ) {			
 				componentList.get(i).setBackground(componentColor);			
@@ -52,7 +51,7 @@ public interface StaticMethods {
 	 * @param componentList
 	 * @param textColor
 	 */
-	public static void setButtonsTextColor(ArrayList<JButton> componentList, Color textColor) {
+	static void setButtonsTextColor(ArrayList<JButton> componentList, Color textColor) {
 		ArrayList<JButton> result = componentList;
 		for(int i = 0; i < componentList.size(); i++ ) {
 			componentList.get(i).setForeground(textColor);			

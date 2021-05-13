@@ -1,4 +1,4 @@
-package helpfulMethodsAndClasses;
+package utilities;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -9,7 +9,6 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 
 /**
  * Makes given combobox editable and filterable.

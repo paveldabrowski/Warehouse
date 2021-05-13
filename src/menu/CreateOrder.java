@@ -1,12 +1,11 @@
 package menu;
 
 import com.google.gson.internal.LinkedTreeMap;
-import dbConnectionAndMethods.DB;
+import db.DB;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -65,19 +64,12 @@ public class CreateOrder extends JPanel {
 	
 	private void initComponents() {
 		panel = this;
-		
 		panel.setLayout(new GridLayout(2,1,0,0));
-		
 		getClientToComboBox(clientCombobox);
-		
 		buttonStatus();
-						
 		initializeNorthPanel();
-	
 		initializeSouthPanel();
-		
 		actionsForButtons();
-				
 	}
 
 	private void buttonStatus() {
@@ -113,7 +105,7 @@ public class CreateOrder extends JPanel {
 						
 		scrollNorth = new JScrollPane(stockTable);
 		
-		scrollNorth.setMaximumSize(new Dimension(100,290));;
+		scrollNorth.setMaximumSize(new Dimension(100,290));
 		northPanel.add(scrollNorth, BorderLayout.CENTER);
 		northPanel.add(menuBarNorth, BorderLayout.SOUTH);
 					
@@ -126,14 +118,7 @@ public class CreateOrder extends JPanel {
 				
 		orderTable = createTable(stockTable, data);		
 	
-		orderTable.getModel().addTableModelListener(new TableModelListener() {
-						
-			@Override
-			public void tableChanged(TableModelEvent e) { 
-				
-				tableChangedMethod(e);
-			}
-		});		
+		orderTable.getModel().addTableModelListener(this::tableChangedMethod);
 		
 		scrollSouth = new JScrollPane(orderTable);		
 		
@@ -158,35 +143,30 @@ public class CreateOrder extends JPanel {
 	
 	private void actionsForButtons() {
 		
-		addToOrderButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				try {
-					int row = stockTable.getSelectedRow();
-					if(stockTable.getValueAt(row, 0) == Boolean.FALSE) {
-						Vector<Object> vector = new Vector<Object>();
-						vector.add(String.valueOf(no++));
-						for(int i = 2; i < 13; i++) {
-							 String cellData = String.valueOf(stockTable.getValueAt(row, i));
-							 vector.add(cellData);
-							 
-						}
-						vector.add("0");
-						data.add(vector);
-						stockTable.setValueAt(Boolean.TRUE, row, 0);
-						refreshOrder();
-						reserveButton.setEnabled(true);
-						orderParametersMap = countItemsAndValue();
-						
+		addToOrderButton.addActionListener(e -> {
+
+			try {
+				int row = stockTable.getSelectedRow();
+				if(stockTable.getValueAt(row, 0) == Boolean.FALSE) {
+					Vector<Object> vector = new Vector<>();
+					vector.add(String.valueOf(no++));
+					for(int i = 2; i < 13; i++) {
+						 String cellData = String.valueOf(stockTable.getValueAt(row, i));
+						 vector.add(cellData);
+
 					}
-				} catch (IndexOutOfBoundsException e1) {
-//					e1.printStackTrace();
-					JOptionPane.showMessageDialog(panel, "You have to choose which product you want to add to order. Please select one.", "No product selected", JOptionPane.INFORMATION_MESSAGE);
-				} catch (Exception e2) {
-					e2.printStackTrace();
+					vector.add("0");
+					data.add(vector);
+					stockTable.setValueAt(Boolean.TRUE, row, 0);
+					refreshOrder();
+					reserveButton.setEnabled(true);
+					orderParametersMap = countItemsAndValue();
+
 				}
+			} catch (IndexOutOfBoundsException e1) {
+				JOptionPane.showMessageDialog(panel, "You have to choose which product you want to add to order. Please select one.", "No product selected", JOptionPane.INFORMATION_MESSAGE);
+			} catch (Exception e2) {
+				e2.printStackTrace();
 			}
 		});
 		
@@ -198,203 +178,161 @@ public class CreateOrder extends JPanel {
 			}
 		});
 		
-		removeFromOrderButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				try {
-					int row = orderTable.getSelectedRow();
-					String id = String.valueOf(orderTable.getValueAt(row, 1));
-					DefaultTableModel model = ((DefaultTableModel)orderTable.getModel());
-					for(int i = 0; i < orderTable.getRowCount(); i++) {
-						String idInData = String.valueOf(data.get(i).get(1));
-						System.out.println(idInData);
-						if (idInData.equals(id)) {
-							data.remove(i);
-							System.out.println("Row removed from data");
-//							refreshOrder();
-							
+		removeFromOrderButton.addActionListener(e -> {
+
+			try {
+				int row = orderTable.getSelectedRow();
+				String id = String.valueOf(orderTable.getValueAt(row, 1));
+				DefaultTableModel model = ((DefaultTableModel) orderTable.getModel());
+				for(int i = 0; i < orderTable.getRowCount(); i++) {
+					String idInData = String.valueOf(data.get(i).get(1));
+					System.out.println(idInData);
+					if (idInData.equals(id)) {
+						data.remove(i);
+						System.out.println("Row removed from data");
+						break;
+					}
+				}
+
+				for (int i = 0; i < stockTable.getRowCount(); i++) {
+					if(stockTable.getValueAt(i, 0)==Boolean.TRUE) {
+						System.out.println("Found Selected");
+						String idInStock = String.valueOf(stockTable.getValueAt(i, 2));
+						if(id.equals(idInStock)) {
+							stockTable.setValueAt(Boolean.FALSE, i, 0);
+							System.out.println("Stock row checkbox changed to false");
 							break;
 						}
 					}
-					for (int i = 0; i < stockTable.getRowCount(); i++) {
-						if(stockTable.getValueAt(i, 0)==Boolean.TRUE) {
-							System.out.println("Found Selected");
-							String idInStock = String.valueOf(stockTable.getValueAt(i, 2));
-							if(id.equals(idInStock)) {
-								stockTable.setValueAt(Boolean.FALSE, i, 0);
-								System.out.println("Stock row checkbox changed to false");
-								break;
-							}
+				}
+
+				refreshOrder();
+				if (orderTable.getRowCount() == 0) {
+					reserveButton.setEnabled(false);
+				}
+				orderParametersMap = countItemsAndValue();
+
+			} catch (IndexOutOfBoundsException e1) {
+				JOptionPane.showMessageDialog(panel, "You have to choose which product you want to remove from order.", "No product selected", JOptionPane.INFORMATION_MESSAGE);
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		});
+		
+		reserveButton.addActionListener(e -> {
+			for(int i = 0; i < orderTable.getRowCount(); i++) {
+				String idInOrder = String.valueOf(orderTable.getValueAt(i, 1));
+				double amountInOrder = Double.parseDouble((String) orderTable.getValueAt(i, 12));
+
+				for (int j = 0; j < stockTable.getRowCount(); j++) {
+					if(stockTable.getValueAt(j, 0).equals(Boolean.TRUE)) {
+						String idInStock = String.valueOf(stockTable.getValueAt(j, 2));
+						if(idInOrder.equals(idInStock)) {
+							double amountInStock = Double.parseDouble(String.valueOf(stockTable.getValueAt(j, 13)));
+							double differense = amountInStock - amountInOrder;
+							double amountReseved = Double.parseDouble(String.valueOf(stockTable.getValueAt(j, 14)));
+							double sumOfReseved = amountReseved + amountInOrder;
+							stockTable.setValueAt(String.valueOf(differense), j, 13);
+							stockTable.setValueAt(String.valueOf(sumOfReseved), j, 14);
+							reserveButton.setEnabled(false);
+							backReservation.setEnabled(true);
+							saveButton.setEnabled(true);
 						}
 					}
-					
+				}
+			}
+			removeFromOrderButton.setEnabled(false);
+			addToOrderButton.setEnabled(false);
+			orderTable.setEnabled(false);
+		});
+
+		backReservation.addActionListener(e -> {
+			backAllReservationMethod();
+			reserveButton.setEnabled(true);
+			backReservation.setEnabled(false);
+			addToOrderButton.setEnabled(true);
+			removeFromOrderButton.setEnabled(true);
+			orderTable.setEnabled(true);
+			saveButton.setEnabled(false);
+		});
+		
+		saveButton.addActionListener(e -> {
+			String clientName = clientCombobox.getSelectedItem().toString();
+			System.out.println("Client: " + clientName);
+
+			if(!clientName.equals("")) {
+				int choice = JOptionPane.showConfirmDialog(orderTable, "Are you sure you want to save order? " +
+						"After that you won't be able to make changes. ", "Confirm", JOptionPane.OK_CANCEL_OPTION,
+						JOptionPane.QUESTION_MESSAGE);
+				if(choice == 0) {
+					Date date = new Date();
+					System.out.println("date: " + date);
+					SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+					String formattedDate = formatter.format(date);
+
+					SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
+					String formattedDate2 = formatter2.format(date);
+
+					int generatedOrderNumber = orderNumberGenerator(formattedDate);
+					String orderKey = "" + generatedOrderNumber + "." + formattedDate;
+					String clientID = "";
+
+					try {
+						Connection conn = DB.getConnection();
+						PreparedStatement statement = conn.prepareStatement("SELECT id FROM clients WHERE name=?");
+						statement.setString(1, clientName);
+						ResultSet rs = statement.executeQuery();
+
+						while(rs.next())
+							clientID = rs.getString("id");
+						System.out.println("Client id: " + clientID);
+
+						for(int i = 0;i < orderTable.getRowCount(); i++) {
+							int amountColumn = orderTable.getColumnModel().getColumnIndex("amount");
+								String productID = String.valueOf(orderTable.getValueAt(i, 1));
+								String amountOrdered = String.valueOf(orderTable.getValueAt(i, 12));
+								String purchasePrice = String.valueOf(orderTable.getValueAt(i, 9));
+								String markup = String.valueOf(orderTable.getValueAt(i, 10));
+								String sellPrice = String.valueOf(orderTable.getValueAt(i, 11));
+
+								PreparedStatement statement3 = conn.prepareStatement("INSERT INTO productlist(order_id, product_id, amount_ordered, purchase_price, `markup(%)`, sell_price) VALUES (?,?,?,?,?,?)");
+								statement3.setString(1, orderKey);
+								statement3.setString(2, productID);
+								statement3.setString(3, amountOrdered);
+								statement3.setString(4, purchasePrice);
+								statement3.setString(5, markup);
+								statement3.setString(6, sellPrice);
+								statement3.executeUpdate();
+						}
+
+						PreparedStatement statement2 = conn.prepareStatement("INSERT INTO orders (client_id, order_id, date, volume, pcs, amount_of_products, value, weight) VALUES (?,?,?,?,?,?,?,?)");
+						statement2.setString(1, clientID);
+						statement2.setString(2, orderKey);
+						statement2.setString(3, formattedDate2);
+						statement2.setString(4, String.valueOf(orderParametersMap.get("volume")));
+						statement2.setString(5, String.valueOf(orderParametersMap.get("pcs")));
+						statement2.setString(6, String.valueOf(orderParametersMap.get("amount_of_products")));
+						statement2.setString(7, String.valueOf(orderParametersMap.get("value")));
+						statement2.setString(8, String.valueOf(orderParametersMap.get("weight")));
+
+						statement2.executeUpdate();
+						JOptionPane.showMessageDialog(panel, "Order saved!", "Success",
+								JOptionPane.INFORMATION_MESSAGE);
+						conn.close();
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+
+					data.clear();
+					ordersMap.clear();
+					clientsOrdersMap.clear();
 					refreshOrder();
-					if(orderTable.getRowCount() == 0) {
-						
-						reserveButton.setEnabled(false);
-						
-					}
-					orderParametersMap = countItemsAndValue();
-					
-				} catch (IndexOutOfBoundsException e1) {
-//					e1.printStackTrace();
-					
-					JOptionPane.showMessageDialog(panel, "You have to choose which product you want to remove from order.", "No product selected", JOptionPane.INFORMATION_MESSAGE);
-				} catch (Exception e2) {
-					e2.printStackTrace();
+					unselectAll();
+					buttonStatus();
 				}
-				
-			}
-		});
-		
-		reserveButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				for(int i = 0; i < orderTable.getRowCount(); i++) {
-					String idInOrder = String.valueOf(orderTable.getValueAt(i, 1));
-					double amountInOrder = Double.parseDouble((String) orderTable.getValueAt(i, 12));
-					
-					for (int j = 0; j < stockTable.getRowCount(); j++) {
-						if(stockTable.getValueAt(j, 0).equals(Boolean.TRUE)) {
-							String idInStock = String.valueOf(stockTable.getValueAt(j, 2));
-							if(idInOrder.equals(idInStock)) {
-								double amountInStock = Double.parseDouble(String.valueOf(stockTable.getValueAt(j, 13)));
-								double differense = amountInStock - amountInOrder;
-								double amountReseved = Double.parseDouble(String.valueOf(stockTable.getValueAt(j, 14)));
-								double sumOfReseved = amountReseved + amountInOrder;
-								stockTable.setValueAt(String.valueOf(differense), j, 13);
-								stockTable.setValueAt(String.valueOf(sumOfReseved), j, 14);
-								
-								reserveButton.setEnabled(false);
-								backReservation.setEnabled(true);
-								saveButton.setEnabled(true);
-							}
-						}
-					}
-				}
-				removeFromOrderButton.setEnabled(false);
-				addToOrderButton.setEnabled(false);
-				orderTable.setEnabled(false);
-			}
-		});
-		
-		
-		backReservation.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				backAllReservationMethod();
-				
-				reserveButton.setEnabled(true);
-				backReservation.setEnabled(false);
-				addToOrderButton.setEnabled(true);
-				removeFromOrderButton.setEnabled(true);
-				orderTable.setEnabled(true);
-				saveButton.setEnabled(false);
-			}
-		});
-		
-		saveButton.addActionListener(new ActionListener() {			
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String clientName = clientCombobox.getSelectedItem().toString();			
-				System.out.println("Client: " + clientName);
-				
-				if(clientName != "") {
-				
-					int choise = JOptionPane.showConfirmDialog(orderTable, "Are you sure you want to save order? After that you won't be able to make changes. ", "Confirm", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-					if(choise == 0) {
-						
-						Date date = new Date();
-						System.out.println("date: " + date);
-						SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-						String formattedDate = formatter.format(date);
-						
-						SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
-						String formattedDate2 = formatter2.format(date);
-						
-						int generatedOrderNumber = orderNumberGenerator(formattedDate);
-						String orderKey = "" + generatedOrderNumber + "." + formattedDate;
-						String clientID = "";
-						
-						try {
-							Connection conn = DB.getConnection();							
-							PreparedStatement statement = conn.prepareStatement("SELECT id FROM clients WHERE name=?");
-							statement.setString(1, clientName);
-							ResultSet rs = statement.executeQuery();
-							
-							while(rs.next())
-								clientID = rs.getString("id");
-							System.out.println("Client id: " + clientID);								
-							
-							for(int i = 0;i < orderTable.getRowCount(); i++) {
-								int amountColumn = orderTable.getColumnModel().getColumnIndex("amount");
-//								if(Double.parseDouble(String.valueOf(orderTable.getValueAt(i, amountColumn))) != 0) {
-									String productID = String.valueOf(orderTable.getValueAt(i, 1));
-									String amountOrdered = String.valueOf(orderTable.getValueAt(i, 12));
-									String purchasePrice = String.valueOf(orderTable.getValueAt(i, 9));
-									String markup = String.valueOf(orderTable.getValueAt(i, 10));								
-									String sellPrice = String.valueOf(orderTable.getValueAt(i, 11));
-											
-									PreparedStatement statement3 = conn.prepareStatement("INSERT INTO productlist(order_id, product_id, amount_ordered, purchase_price, `markup(%)`, sell_price) VALUES (?,?,?,?,?,?)");
-									statement3.setString(1, orderKey);
-									statement3.setString(2, productID);
-									statement3.setString(3, amountOrdered);
-									statement3.setString(4, purchasePrice);
-									statement3.setString(5, markup);
-									statement3.setString(6, sellPrice);
-									statement3.executeUpdate();		
-									
-//								} else {
-//									((DefaultTableModel)orderTable.getModel()).removeRow(i);
-//									((DefaultTableModel)orderTable.getModel()).fireTableRowsDeleted(i, i);
-//									countItemsAndValue();
-//								}
-							}
-							
-//							if(orderTable.getModel().getRowCount() > 0) {							
-								PreparedStatement statement2 = conn.prepareStatement("INSERT INTO orders (client_id, order_id, date, volume, pcs, amount_of_products, value, weight) VALUES (?,?,?,?,?,?,?,?)");
-								statement2.setString(1, clientID);
-								statement2.setString(2, orderKey);
-								statement2.setString(3, formattedDate2);
-								statement2.setString(4, String.valueOf(orderParametersMap.get("volume")));
-								statement2.setString(5, String.valueOf(orderParametersMap.get("pcs")));
-								statement2.setString(6, String.valueOf(orderParametersMap.get("amount_of_products")));
-								statement2.setString(7, String.valueOf(orderParametersMap.get("value")));
-								statement2.setString(8, String.valueOf(orderParametersMap.get("weight")));							
-								
-								statement2.executeUpdate();
-								JOptionPane.showMessageDialog(panel, "Order saved!", "Success", JOptionPane.INFORMATION_MESSAGE);
-//							} else {
-//								JOptionPane.showMessageDialog(panel, "Orderlist is empty or amount of products equals zero", "Order not saved", JOptionPane.ERROR_MESSAGE);
-//							}
-							
-							
-							conn.close();
-							
-							
-						} catch (Exception e1) {							
-							e1.printStackTrace();
-						}					
-					     
-					     data.clear();
-					     ordersMap.clear();
-					     clientsOrdersMap.clear();
-					     refreshOrder();
-//					     refreshAll();
-					     unselectAll();
-					     buttonStatus();
-					}
-					
-				}else {
-					JOptionPane.showMessageDialog(orderTable, "You must choose the client.", "Client not selected", JOptionPane.INFORMATION_MESSAGE);
-					clientCombobox.requestFocus();
-				}				
+			} else {
+				JOptionPane.showMessageDialog(orderTable, "You must choose the client.", "Client not selected", JOptionPane.INFORMATION_MESSAGE);
+				clientCombobox.requestFocus();
 			}
 		});
 	}
@@ -405,15 +343,6 @@ public class CreateOrder extends JPanel {
 			}
 		
 		if(e.getColumn() != 12 && e.getColumn() != 0) {
-//			orderTable = Stock.updateDBfromTableCell(orderTable, "productlibrary", e);
-//			northPanel.remove(scrollNorth);
-//			StockForOrder2 stock = new StockForOrder2();
-//			stockTable = stock.stockTable;
-//			
-//					
-//	my		scrollNorth = new JScrollPane(stockTable);
-//		
-//			northPanel.add(scrollNorth, BorderLayout.CENTER);
 			
 		} else if (e.getColumn() == 12) {
 			
@@ -423,14 +352,12 @@ public class CreateOrder extends JPanel {
 			
 			if(!(stringAmountInOrder.matches("^\\d+$") || stringAmountInOrder.matches("^(\\d+).(\\d+)$"))) {
 				
-				((DefaultTableModel)orderTable.getModel()).setValueAt("0", row, 12);
+				orderTable.getModel().setValueAt("0", row, 12);
 				JOptionPane.showMessageDialog(orderTable, "Wrong number. Please use one of this number format:  '0' or '0.0'." , "Wrong number", JOptionPane.WARNING_MESSAGE);
 			}
 									
 			if(unit.equals("pcs") && stringAmountInOrder.matches("^\\d+$") && !(stringAmountInOrder.equals("0") || stringAmountInOrder.equals("0.0"))) {
-				/*
-				 * action
-				 */
+
 				double amountInOrder = Double.parseDouble((String) orderTable.getValueAt(row, 12));
 				String idInOrder = String.valueOf(orderTable.getValueAt(row, 1));
 				
@@ -446,7 +373,7 @@ public class CreateOrder extends JPanel {
 								 */
 							} else {
 								JOptionPane.showMessageDialog(orderTable, "There is not enough amount of this product in stock. Added max amount.", "Not enough amount in stock", JOptionPane.INFORMATION_MESSAGE);
-								((DefaultTableModel)orderTable.getModel()).setValueAt(String.valueOf((int)amountInStock), row, 12);
+								orderTable.getModel().setValueAt(String.valueOf((int)amountInStock), row, 12);
 							}
 							break;
 						}
@@ -455,7 +382,7 @@ public class CreateOrder extends JPanel {
 				System.out.println("pcs data ok");
 			} else if (unit.equals("pcs") && !(stringAmountInOrder.matches("^\\d+$")) && !(stringAmountInOrder.equals("0")) && !(stringAmountInOrder.equals("0.0") )) {
 				System.out.println("Jestem tu");
-				((DefaultTableModel)orderTable.getModel()).setValueAt("0", row, 12);
+				orderTable.getModel().setValueAt("0", row, 12);
 				JOptionPane.showMessageDialog(orderTable, "Unit of this product is 'pcs'. Use integer." , "Wrong number", JOptionPane.WARNING_MESSAGE);
 			}
 			
@@ -479,21 +406,19 @@ public class CreateOrder extends JPanel {
 								 */
 							} else {
 								JOptionPane.showMessageDialog(orderTable, "There is not enough amount of this product in stock. Added max amount.", "Not enough amount in stock", JOptionPane.INFORMATION_MESSAGE);
-								((DefaultTableModel)orderTable.getModel()).setValueAt(String.valueOf(amountInStock), row, 12);
+								orderTable.getModel().setValueAt(String.valueOf(amountInStock), row, 12);
 							}
 							break;
 						}
 					}
 				}
 				System.out.println("kg data ok");
-
 			}
 		}
 	orderParametersMap = countItemsAndValue();	
 	}
 	
 	private void refreshAll() {
-	
 		panel.removeAll();		
 		initializeNorthPanel();
 		initializeSouthPanel();
@@ -508,17 +433,12 @@ public class CreateOrder extends JPanel {
 	}
 	
  	private JTable createTable(JTable table, Vector<Vector<Object>> data) {
-		
  		DefaultTableModel defaultTableModel = buildTableModel(table, data);
- 		 		
 		JTable orderTable = new JTable(defaultTableModel);
 		orderTable.getTableHeader().setReorderingAllowed(false);
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-	    
-//		DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
-//		centerRenderer.setHorizontalAlignment(SwingConstants.LEFT);
-//		
+
 		orderTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
 		orderTable.getColumnModel().getColumn(0).setMaxWidth(100);
 		orderTable.getColumnModel().getColumn(0).setMinWidth(50);
@@ -528,13 +448,11 @@ public class CreateOrder extends JPanel {
 		orderTable.getColumnModel().getColumn(1).setMaxWidth(1000);
 		orderTable.getColumnModel().getColumn(1).setMinWidth(50);
 		orderTable.getColumnModel().getColumn(1).setPreferredWidth(70);
-		
-//		orderTable.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+
 		orderTable.getColumnModel().getColumn(2).setMaxWidth(1000);
 		orderTable.getColumnModel().getColumn(2).setMinWidth(150);
 		orderTable.getColumnModel().getColumn(2).setPreferredWidth(197);
-		
-//		orderTable.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+
 		orderTable.getColumnModel().getColumn(3).setMaxWidth(1000);
 		orderTable.getColumnModel().getColumn(3).setMinWidth(50);
 		orderTable.getColumnModel().getColumn(3).setPreferredWidth(126);
@@ -558,8 +476,7 @@ public class CreateOrder extends JPanel {
 		orderTable.getColumnModel().getColumn(7).setMaxWidth(1000);
 		orderTable.getColumnModel().getColumn(7).setMinWidth(50);
 		orderTable.getColumnModel().getColumn(7).setPreferredWidth(90);
-		
-//		orderTable.getColumnModel().getColumn(8).setCellRenderer(centerRenderer);
+
 		orderTable.getColumnModel().getColumn(8).setMaxWidth(1000);
 		orderTable.getColumnModel().getColumn(8).setMinWidth(50);
 		orderTable.getColumnModel().getColumn(8).setPreferredWidth(125);
@@ -585,7 +502,6 @@ public class CreateOrder extends JPanel {
 	}
 
 	private DefaultTableModel buildTableModel(JTable table, Vector<Vector<Object>> data){
-
 	    // names of columns
 	    Vector<Object> columnNames = new Vector<Object>();
 	    for(int i = 1; i < table.getColumnCount() - 2; i++) {
@@ -598,7 +514,8 @@ public class CreateOrder extends JPanel {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 			
-				return column == 0 || column == 1 || column == 6 || column == 7 || column == 8 || column == 9 || column == 11 ? false : true;
+				return column == 0 || column == 1 || column == 6 || column == 7 || column == 8 || column == 9 ||
+						column == 11 ? false : true;
 			}
 			
 			@Override
@@ -622,7 +539,6 @@ public class CreateOrder extends JPanel {
 		String data = (String) table.getValueAt(row, col);
 			
 		if((data.matches("^\\d+$") || data.matches("^(\\d+).(\\d+)$"))) {
-			
 			try {
 				double purchasePrice = Double.parseDouble((String) table.getValueAt(row, 9));
 				double markup = Double.parseDouble((String) table.getValueAt(row, 10));
@@ -636,11 +552,8 @@ public class CreateOrder extends JPanel {
 			} catch (NumberFormatException e1) {
 				JOptionPane.showMessageDialog(table, "Wrong number. Please use one of this number format:  '0' or '0.0'." , "Wrong number", JOptionPane.WARNING_MESSAGE);
 				table.setValueAt("0.0", row, col);
-//				e1.printStackTrace();
 			}
-			
 		}else {
-			
 			JOptionPane.showMessageDialog(table, "Wrong number. Please use one of this number format:  '0' or '0.0'." , "Wrong number", JOptionPane.WARNING_MESSAGE);
 			table.setValueAt("0.0", row, col);
 		}
@@ -650,7 +563,6 @@ public class CreateOrder extends JPanel {
 		
 		try {
 			Connection conn = DB.getConnection();
-			
 			PreparedStatement statement = conn.prepareStatement("SELECT * FROM clients");
 			ResultSet resultSet = statement.executeQuery();
 			combo.setEditable(true);
@@ -680,12 +592,10 @@ public class CreateOrder extends JPanel {
 					if(idInOrder.equals(idInStock)) {
 						double amountReseved = Double.parseDouble((String) stockTable.getValueAt(j, 14));
 						double amountInStock = Double.parseDouble((String) stockTable.getValueAt(j, 13));
-						double differense = amountReseved - amountInOrder;
+						double difference = amountReseved - amountInOrder;
 						double sumOfStock = amountInStock + amountInOrder;
-						stockTable.setValueAt(String.valueOf(differense), j, 14);
+						stockTable.setValueAt(String.valueOf(difference), j, 14);
 						stockTable.setValueAt(String.valueOf(sumOfStock), j, 13);
-						
-					
 					}
 				}
 			}
@@ -705,7 +615,7 @@ public class CreateOrder extends JPanel {
 		int low2 = 10000; int high2 = 90000;
 		int generatedNumber = numberGenerator.nextInt(high2-low2) + low2;
 		ResultSet rs;
-		ArrayList<String> listOfOrders = new ArrayList<String>();
+		ArrayList<String> listOfOrders = new ArrayList<>();
 		try {
 			Connection conn = DB.getConnection();
 			PreparedStatement statement = conn.prepareStatement("select order_id from orders");
@@ -767,25 +677,21 @@ public class CreateOrder extends JPanel {
 		return vector;
 	}
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TreeMap<String,String> map = new TreeMap<String, String>();
-					map.put("name", "Pawe³");
-					map.put("lastName", "D¹browski");
-					map.put("id", "4");
-					map.put("login", "d");
-					map.put("YWN", "20205999");
-					map.put("password", "d");
-					map.put("access", "1");
-					
-					Menu menu = new Menu(map);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+		EventQueue.invokeLater(() -> {
+			try {
+				TreeMap<String,String> map = new TreeMap<>();
+				map.put("name", "Paweï¿½");
+				map.put("lastName", "Dï¿½browski");
+				map.put("id", "4");
+				map.put("login", "d");
+				map.put("YWN", "20205999");
+				map.put("password", "d");
+				map.put("access", "1");
+
+				Menu menu = new Menu(map);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		});
-
 	}
-
 }

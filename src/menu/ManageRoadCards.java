@@ -1,15 +1,12 @@
 package menu;
 
 import javax.swing.*;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import org.apache.log4j.BasicConfigurator;
 
-import dbConnectionAndMethods.DB;
-import menu.Menu;
+import db.DB;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -91,7 +88,7 @@ public class ManageRoadCards extends JPanel {
 //						
 						JasperReport jasperReport = null;
 						
-						String sourceFileName = "src/roadCard/roadCard.jrxml";
+						String sourceFileName = "src/roadcardreport/roadcardreport.jrxml";
 					    jasperReport = JasperCompileManager.compileReport(sourceFileName);			
 //								String report = JasperCompileManager.compileReportToFile("src/invoice/Invoice2.jrxml");
 						
@@ -310,8 +307,8 @@ public class ManageRoadCards extends JPanel {
 			public void run() {
 				try {
 					TreeMap<String,String> map = new TreeMap<String, String>();
-					map.put("name", "Pawe³");
-					map.put("lastName", "D¹browski");
+					map.put("name", "Paweï¿½");
+					map.put("lastName", "Dï¿½browski");
 					map.put("id", "4");
 					map.put("login", "d");
 					map.put("YWN", "20205999");

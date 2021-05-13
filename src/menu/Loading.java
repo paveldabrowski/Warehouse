@@ -1,6 +1,6 @@
 package menu;
 
-import dbConnectionAndMethods.DB;
+import db.DB;
 import org.apache.commons.lang3.StringUtils;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import user.User;
@@ -478,7 +478,7 @@ public class Loading extends JPanel {
 		int szerRamki = scrollPane.getSize().width;
 		int wysRamki = scrollPane.getSize().height;
 
-		dialog.setLocation((szer-szerRamki)/2,(wys-wysRamki)/2); // to centruje ramkê zawsze!!!			
+		dialog.setLocation((szer-szerRamki)/2,(wys-wysRamki)/2); // to centruje ramkï¿½ zawsze!!!			
 		
 		ok.addActionListener(new ActionListener() {
 			
@@ -863,8 +863,8 @@ public class Loading extends JPanel {
 			public void run() {
 				try {
 					TreeMap<String,String> map = new TreeMap<String, String>();
-					map.put("name", "Pawe³");
-					map.put("lastName", "D¹browski");
+					map.put("name", "Paweï¿½");
+					map.put("lastName", "Dï¿½browski");
 					map.put("id", "4");
 					map.put("login", "d");
 					map.put("YWN", "20205999");

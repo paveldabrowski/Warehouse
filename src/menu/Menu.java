@@ -1,10 +1,10 @@
 package menu;
 
 
-import ClosabelTabbedPane.tabbedpane.ClosableTabbedPane;
-import helpfulMethodsAndClasses.Clock;
-import helpfulMethodsAndClasses.JTatoo;
-import helpfulMethodsAndClasses.StaticMethods;
+import closabeltabbedpane.tabbedpane.ClosableTabbedPane;
+import utilities.Clock;
+import utilities.JTatoo;
+import utilities.StaticMethods;
 import net.miginfocom.swing.MigLayout;
 import user.User;
 
@@ -615,8 +615,8 @@ public class Menu {
 
 	public static void main(String[] args) {
 		TreeMap<String,String> map = new TreeMap<String, String>();
-		map.put("name", "Pawe³");
-		map.put("lastName", "D¹browski");
+		map.put("name", "Paweï¿½");
+		map.put("lastName", "Dï¿½browski");
 		map.put("id", "4");
 		map.put("login", "d");
 		map.put("YWN", "20205999");

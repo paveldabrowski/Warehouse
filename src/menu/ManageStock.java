@@ -33,7 +33,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 
-import dbConnectionAndMethods.DB;
+import db.DB;
 
 public class ManageStock extends JPanel {
 	

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.TreeMap;
 
-import dbConnectionAndMethods.DB;
+import db.DB;
 
 public class User {
 	private String name;

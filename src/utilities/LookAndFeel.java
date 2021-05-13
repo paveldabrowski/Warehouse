@@ -1,4 +1,4 @@
-package helpfulMethodsAndClasses;
+package utilities;
 
 import javax.swing.*;
 

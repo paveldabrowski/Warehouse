@@ -1,4 +1,4 @@
-package ClosabelTabbedPane.tabbedpane;
+package closabeltabbedpane.tabbedpane;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;

@@ -1,41 +1,34 @@
 package menu;
 
+import db.DB;
+
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import dbConnectionAndMethods.DB;
-
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.TreeMap;
 import java.util.Vector;
 
-public class Completion extends JPanel{
-	/**
-	 * 
-	 */
+public class Completion extends JPanel {
+
 	private static final long serialVersionUID = 1L;
 	private JPanel panel;
 	private JPanel panelNorth;
 	private JPanel panelSouth;
-	
 	private JTable tableNorth;
 	protected JTable tableSouth;
-
-	
 	private JScrollPane scrollNorth;
 	protected JScrollPane scrollSouth;
-	
+
 	private JButton beginCompletion = new JButton("Begin completion");
 	private JButton okButton = new JButton("OK");
 	private JButton finishCompletion = new JButton("Finish");
@@ -80,9 +73,7 @@ public class Completion extends JPanel{
 	 */
 	private void initComponents() {
 		initializeNorthPanel();
-		
 		actionsForComponents();
-		
 	}
 	
 	/**
@@ -116,8 +107,7 @@ public class Completion extends JPanel{
 		panelSouth.add(menuBarSouthUp, BorderLayout.NORTH);	
 		panelSouth.add(menuBarSouthDown, BorderLayout.SOUTH);
 		panel.add(panelSouth);
-		
-//		tableSouth.setEnabled(false);
+
 		tableSouth.setRowSelectionInterval(0, 0);
 		
 		amountCompleted.setText(String.valueOf(tableSouth.getValueAt(tableSouth.getSelectedRow(), 12)));
@@ -126,41 +116,31 @@ public class Completion extends JPanel{
 		client2.setText(String.valueOf(tableNorth.getValueAt(tableNorth.getSelectedRow(), 1)));
 		order2.setText(String.valueOf(tableNorth.getValueAt(tableNorth.getSelectedRow(), 2)));
 				
-		tableSouth.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-			
-			@Override
-			public void valueChanged(ListSelectionEvent e) {
-			
-				noLabel.setText(" Selected product number: " + tableSouth.getValueAt(tableSouth.getSelectedRow(), 0));
-				amountCompleted.setText(String.valueOf(tableSouth.getValueAt(tableSouth.getSelectedRow(), 12)));
-				amountCompleted.requestFocus();
-			}
+		tableSouth.getSelectionModel().addListSelectionListener(e -> {
+			noLabel.setText(" Selected product number: " + tableSouth.getValueAt(tableSouth.getSelectedRow(), 0));
+			amountCompleted.setText(String.valueOf(tableSouth.getValueAt(tableSouth.getSelectedRow(), 12)));
+			amountCompleted.requestFocus();
 		});
 		
-		tableSouth.getModel().addTableModelListener(new TableModelListener() {
-			
-			@Override
-			public void tableChanged(TableModelEvent e) {
-				
-				orderParameters = new HashMap<String, Object>();
-				double volume = 0;
-				double value = 0;
-				double pcs = 0;
-				
-				for(int i = 0; i < tableSouth.getRowCount(); i++) {
-					volume += Double.parseDouble(String.valueOf(tableSouth.getValueAt(i, 7))) * Double.parseDouble(String.valueOf(tableSouth.getValueAt(i, 13)));
-					value += Double.parseDouble(String.valueOf(tableSouth.getValueAt(i, 11))) * Double.parseDouble(String.valueOf(tableSouth.getValueAt(i, 13)));
-					pcs += Double.parseDouble(String.valueOf(tableSouth.getValueAt(i, 13)));					
-				}
-				
-				orderParameters.put("volume", volume);
-				orderParameters.put("value", value);
-				orderParameters.put("pcs", pcs);				
-				
-				volumeLabel.setText(", Volume: " + volume);
-				valueLabel.setText(", Value: " + String.format("%.2f", value));
-				pcsLabel.setText(", Pcs: " + pcs);
+		tableSouth.getModel().addTableModelListener(e -> {
+			orderParameters = new HashMap<>();
+			double volume = 0;
+			double value = 0;
+			double pcs = 0;
+
+			for(int i = 0; i < tableSouth.getRowCount(); i++) {
+				volume += Double.parseDouble(String.valueOf(tableSouth.getValueAt(i, 7))) * Double.parseDouble(String.valueOf(tableSouth.getValueAt(i, 13)));
+				value += Double.parseDouble(String.valueOf(tableSouth.getValueAt(i, 11))) * Double.parseDouble(String.valueOf(tableSouth.getValueAt(i, 13)));
+				pcs += Double.parseDouble(String.valueOf(tableSouth.getValueAt(i, 13)));
 			}
+
+			orderParameters.put("volume", volume);
+			orderParameters.put("value", value);
+			orderParameters.put("pcs", pcs);
+
+			volumeLabel.setText(", Volume: " + volume);
+			valueLabel.setText(", Value: " + String.format("%.2f", value));
+			pcsLabel.setText(", Pcs: " + pcs);
 		});
 	}
 
@@ -172,7 +152,6 @@ public class Completion extends JPanel{
 		tableNorth = new ManageOrders().getTableNorth();
 		tableNorth.getTableHeader().setReorderingAllowed(false);
 		tableNorth.setAutoCreateRowSorter(true);
-//		System.out.println(tableNorth.getValueAt(0, 0).getClass());
 		tableNorth.getColumnModel().getColumn(0).setMaxWidth(40);
 		panelNorth = new JPanel();
 		panelNorth.setLayout(new BorderLayout());
@@ -193,115 +172,94 @@ public class Completion extends JPanel{
 	 */
 	private void actionsForComponents() {
 		
-		finishCompletion.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				finalizeCompletion();
-			}
-		});
+		finishCompletion.addActionListener(e -> finalizeCompletion());
 		
-		beginCompletion.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				try {
-					panel.remove(panelSouth);
-				} catch (Exception e1) {
-					e1.getMessage();
-				}
-				
-				int rowSelected = tableNorth.getSelectedRow();
-				String client;
-				String order;
-				if(rowSelected == -1) {
-					tableNorth.setRowSelectionInterval(0, 0);
-					client = String.valueOf(tableNorth.getValueAt(0, 1));
-					order = String.valueOf(tableNorth.getValueAt(0, 2));
-				} else {
-					client = String.valueOf(tableNorth.getValueAt(rowSelected, 1));
-					order = String.valueOf(tableNorth.getValueAt(rowSelected, 2));					
-				}				
-				
-				Vector<String> columnNames = new Vector<String>();
-				columnNames.add("no.");
-				Vector<Vector<Object>> data = new Vector<Vector<Object>>();
-								
-				try {
-					Connection conn = DB.getConnection();
-					PreparedStatement statement = conn.prepareStatement("SELECT lib.id, lib.name, lib.manufacturer, lib.`country of production`, lib.weight, lib.unit, lib.`volume (dm3)`" + 
-							", lib.barcode, p.purchase_price, p.`markup(%)`, p.sell_price, p.amount_ordered, p.amount_completed FROM productlist p JOIN productlibrary lib ON p.product_id=lib.id WHERE order_id=?");
-					statement.setString(1, order);
-					ResultSet rs = statement.executeQuery();
-					
-					ResultSetMetaData colNames = rs.getMetaData();
-					for(int i = 1; i <= colNames.getColumnCount(); i++) {
-						columnNames.add(colNames.getColumnName(i));
-					}
-					columnNames.add("status");
-					
-					int i = 1;
-					while(rs.next()) {
-												
-						Vector<Object> vector = new Vector<Object>();
-						vector.add(i++);
-						for(int j = 1; j <= colNames.getColumnCount(); j++) {							
-							vector.add(rs.getObject(j));						
-						}
-						vector.add(Boolean.FALSE);
-						data.add(vector);
-					}										
-					conn.close();
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				} catch (Exception e1) {					
-					e1.printStackTrace();
-				}
-				
-				DefaultTableModel defaultTableModel = new DefaultTableModel(data, columnNames){
-					/**
-					 * 
-					 */
-					private static final long serialVersionUID = 1L;
-
-					@Override
-					public boolean isCellEditable(int row, int column) {
-						if(column > 0)
-							return false;
-						return true;
-					}
-					
-					@Override
-					public Class<?> getColumnClass(int column) {
-						Class<?> retVal = Object.class;
-
-				        if(getRowCount() > 0)
-				            retVal =  getValueAt(0, column).getClass();
-
-				        return retVal;
-					}
-				};
-				
-				tableSouth = new JTable(defaultTableModel);				
-				DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-				centerRenderer.setHorizontalAlignment( SwingConstants.CENTER );
-				tableSouth.getTableHeader().setReorderingAllowed(false);
-				tableSouth.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-				tableSouth.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
-				tableSouth.getColumnModel().getColumn(6).setCellRenderer(centerRenderer);
-				tableSouth.getColumnModel().getColumn(2).setPreferredWidth(190);
-				
-				tableSouth.getColumnModel().getColumn(0).setMaxWidth(40);
-				tableSouth.getColumnModel().getColumn(1).setMaxWidth(40);
-				tableSouth.getColumnModel().getColumn(14).setMaxWidth(40);
-				tableSouth.getColumnModel().getColumn(6).setMaxWidth(40);
-				
-				initializeSouthPanel();				
+		beginCompletion.addActionListener(e -> {
+			try {
+				panel.remove(panelSouth);
+			} catch (Exception e1) {
+				System.out.println(e1.getMessage());
 			}
+
+			int rowSelected = tableNorth.getSelectedRow();
+
+			String order;
+			if(rowSelected == -1) {
+				tableNorth.setRowSelectionInterval(0, 0);
+				order = String.valueOf(tableNorth.getValueAt(0, 2));
+			} else {
+				order = String.valueOf(tableNorth.getValueAt(rowSelected, 2));
+			}
+
+			Vector<String> columnNames = new Vector<>();
+			columnNames.add("no.");
+			Vector<Vector<Object>> data = new Vector<>();
+
+			try {
+				Connection conn = DB.getConnection();
+				PreparedStatement statement = conn.prepareStatement("SELECT lib.id, lib.name, lib.manufacturer, lib.`country of production`, lib.weight, lib.unit, lib.`volume (dm3)`" +
+						", lib.barcode, p.purchase_price, p.`markup(%)`, p.sell_price, p.amount_ordered, p.amount_completed FROM productlist p JOIN productlibrary lib ON p.product_id=lib.id WHERE order_id=?");
+				statement.setString(1, order);
+				ResultSet rs = statement.executeQuery();
+
+				ResultSetMetaData colNames = rs.getMetaData();
+				for(int i = 1; i <= colNames.getColumnCount(); i++) {
+					columnNames.add(colNames.getColumnName(i));
+				}
+				columnNames.add("status");
+
+				int i = 1;
+				while(rs.next()) {
+					Vector<Object> vector = new Vector<>();
+					vector.add(i++);
+					for(int j = 1; j <= colNames.getColumnCount(); j++) {
+						vector.add(rs.getObject(j));
+					}
+					vector.add(Boolean.FALSE);
+					data.add(vector);
+				}
+				conn.close();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+
+			DefaultTableModel defaultTableModel = new DefaultTableModel(data, columnNames) {
+
+				@Override
+				public boolean isCellEditable(int row, int column) {
+					return column <= 0;
+				}
+
+				@Override
+				public Class<?> getColumnClass(int column) {
+					Class<?> retVal = Object.class;
+
+					if(getRowCount() > 0)
+						retVal =  getValueAt(0, column).getClass();
+
+					return retVal;
+				}
+			};
+
+			tableSouth = new JTable(defaultTableModel);
+			DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+			centerRenderer.setHorizontalAlignment( SwingConstants.CENTER );
+			tableSouth.getTableHeader().setReorderingAllowed(false);
+			tableSouth.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+			tableSouth.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+			tableSouth.getColumnModel().getColumn(6).setCellRenderer(centerRenderer);
+			tableSouth.getColumnModel().getColumn(2).setPreferredWidth(190);
+
+			tableSouth.getColumnModel().getColumn(0).setMaxWidth(40);
+			tableSouth.getColumnModel().getColumn(1).setMaxWidth(40);
+			tableSouth.getColumnModel().getColumn(14).setMaxWidth(40);
+			tableSouth.getColumnModel().getColumn(6).setMaxWidth(40);
+
+			initializeSouthPanel();
 		});
 		
 		amountCompleted.addKeyListener(new KeyAdapter() {
+
 			@Override
 			public void keyTyped(KeyEvent e) {
 				if(!(e.getKeyChar()>= '0' && e.getKeyChar() <= '9'))
@@ -316,14 +274,7 @@ public class Completion extends JPanel{
 			}
 		});
 		
-		okButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				okButtonMethod();
-			
-			}
-		});
+		okButton.addActionListener(e -> okButtonMethod());
 	}
 	
 	/**
@@ -366,7 +317,7 @@ public class Completion extends JPanel{
 		
 		boolean flag = true;
 		for(int i = 0; i < tableSouth.getRowCount(); i++) {
-			if((Boolean) tableSouth.getValueAt(i, 14) == false) {
+			if(!((Boolean) tableSouth.getValueAt(i, 14))) {
 				flag = false;
 			}
 		}
@@ -394,9 +345,7 @@ public class Completion extends JPanel{
 						System.out.println("Only set status to `true` in orders");
 						
 						conn.close();
-						
-//						JOptionPane.showMessageDialog(panel, "Order successfuly completed.", "Finished", JOptionPane.INFORMATION_MESSAGE);
-						
+
 					} else if(completedAmount != orderedAmount) {
 						
 						PreparedStatement statement = conn.prepareStatement("UPDATE productlist SET amount_completed = ? WHERE product_id = ? AND order_id = ?");
@@ -439,20 +388,17 @@ public class Completion extends JPanel{
 						conn.close();						
 												
 						System.out.println("Orders updated");
-//						JOptionPane.showMessageDialog(panel, "Order successfuly completed.", "Finished", JOptionPane.INFORMATION_MESSAGE);				
 						refreshNorthTable();
-										
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				
 			}
+
 			JOptionPane.showMessageDialog(panel, "Order successfuly completed.", "Finished", JOptionPane.INFORMATION_MESSAGE);	
 			panelSouth.removeAll();
 			panelSouth.revalidate();
-			panelSouth.repaint();			
-					
+			panelSouth.repaint();
 		} else {
 			JOptionPane.showMessageDialog(panel, "There is one or more products not completed.", "Not all product completed", JOptionPane.ERROR_MESSAGE);
 		}
@@ -460,34 +406,32 @@ public class Completion extends JPanel{
 	
 	protected void refreshNorthTable() {
 		try {
-		panelNorth.remove(scrollNorth);
-		tableNorth = new ManageOrders().getTableNorth();
-		scrollNorth = new JScrollPane(tableNorth);
-		panelNorth.add(scrollNorth, BorderLayout.CENTER);
-		panelNorth.revalidate();
-		panelNorth.repaint();
+			panelNorth.remove(scrollNorth);
+			tableNorth = new ManageOrders().getTableNorth();
+			scrollNorth = new JScrollPane(tableNorth);
+			panelNorth.add(scrollNorth, BorderLayout.CENTER);
+			panelNorth.revalidate();
+			panelNorth.repaint();
 		} catch(Exception e) {
-			e.getMessage();
+			System.out.println(e.getMessage());
 		}
 	}
 	
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TreeMap<String,String> map = new TreeMap<String, String>();
-					map.put("name", "Pawe³");
-					map.put("lastName", "D¹browski");
-					map.put("id", "4");
-					map.put("login", "d");
-					map.put("YWN", "20205999");
-					map.put("password", "d");
-					map.put("access", "1");
-					
-					Menu menu = new Menu(map);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+		EventQueue.invokeLater(() -> {
+			try {
+				TreeMap<String,String> map = new TreeMap<>();
+				map.put("name", "Paweï¿½");
+				map.put("lastName", "Dï¿½browski");
+				map.put("id", "4");
+				map.put("login", "d");
+				map.put("YWN", "20205999");
+				map.put("password", "d");
+				map.put("access", "1");
+
+				Menu menu = new Menu(map);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		});
 	}

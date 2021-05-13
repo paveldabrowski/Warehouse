@@ -1,7 +1,6 @@
 package menu;
 
 import java.util.Formatter;
-import java.util.TreeMap;
 import java.util.Vector;
 
 import javax.swing.*;
@@ -10,9 +9,8 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-import dbConnectionAndMethods.DB;
+import db.DB;
 
-import java.awt.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -42,7 +40,7 @@ public class StockForOrder2 {
 			ResultSet result = statement.executeQuery();
 			
 			if(stockTable != null) {
-	//			System.out.println("robiê null");
+	//			System.out.println("robiï¿½ null");
 				stockTable = null;
 			}
 			stockTable = buildTableModel(result);
@@ -313,8 +311,8 @@ public class StockForOrder2 {
 			public void run() {
 				
 //				TreeMap<String,String> map = new TreeMap<String, String>();
-//				map.put("name", "Pawe³");
-//				map.put("lastName", "D¹browski");
+//				map.put("name", "Paweï¿½");
+//				map.put("lastName", "Dï¿½browski");
 //				map.put("id", "4");
 //				map.put("login", "d");
 //				map.put("YWN", "20205999");

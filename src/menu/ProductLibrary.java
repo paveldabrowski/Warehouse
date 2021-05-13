@@ -1,27 +1,18 @@
 package menu;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Formatter;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import javax.swing.SingleSelectionModel;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import com.mysql.jdbc.Connection;
 
-import dbConnectionAndMethods.DB;
+import db.DB;
 
 public class ProductLibrary {
 	

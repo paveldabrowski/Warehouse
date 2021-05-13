@@ -1,7 +1,7 @@
 package menu;
 
 import com.google.gson.internal.LinkedTreeMap;
-import dbConnectionAndMethods.DB;
+import db.DB;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 import javax.swing.*;
@@ -593,7 +593,7 @@ public class ManageOrders extends JPanel{
 						
 						try {
 							Connection conn = DB.getConnection();
-							PreparedStatement statement = conn.prepareStatement("SELECT `purchase price (PLN)`, `markup (%)`, `selling price(no tax)`, amount, reserved FROM productlibrary WHERE id = ?");
+							PreparedStatement statement = conn.prepareStatement("SELECT `purchase price`, `markup (%)`, `selling price(no tax)`, amount, reserved FROM productlibrary WHERE id = ?");
 							statement.setString(1, productId);
 							ResultSet rs = statement.executeQuery();
 							double purchasePrise = 0;
@@ -602,7 +602,7 @@ public class ManageOrders extends JPanel{
 							double amountFromStock = 0;
 							double reserved = 0;
 							while(rs.next()) {
-								purchasePrise = rs.getDouble("purchase price (PLN)");
+								purchasePrise = rs.getDouble("purchase price");
 								markup = rs.getDouble("markup (%)");
 								sellPrise = rs.getDouble("selling price(no tax)");
 								amountFromStock = rs.getDouble("amount");
@@ -1142,8 +1142,8 @@ public class ManageOrders extends JPanel{
 			public void run() {
 				try {
 					TreeMap<String,String> map = new TreeMap<String, String>();
-					map.put("name", "Pawe³");
-					map.put("lastName", "D¹browski");
+					map.put("name", "Paweï¿½");
+					map.put("lastName", "Dï¿½browski");
 					map.put("id", "4");
 					map.put("login", "d");
 					map.put("YWN", "20205999");

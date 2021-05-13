@@ -1,6 +1,6 @@
 package menu;
 
-import dbConnectionAndMethods.DB;
+import db.DB;
 
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
@@ -34,7 +34,7 @@ public class Stock {
 			ResultSet result = statement.executeQuery();
 			
 			if(stockTable != null) {
-	//			System.out.println("robiê null");
+	//			System.out.println("robiï¿½ null");
 				stockTable = null;
 			}
 			stockTable = new JTable(buildTableModel(result)) {
@@ -294,8 +294,8 @@ public class Stock {
 			public void run() {
 				
 //				TreeMap<String,String> map = new TreeMap<String, String>();
-//				map.put("name", "Pawe³");
-//				map.put("lastName", "D¹browski");
+//				map.put("name", "Paweï¿½");
+//				map.put("lastName", "Dï¿½browski");
 //				map.put("id", "4");
 //				map.put("login", "d");
 //				map.put("YWN", "20205999");

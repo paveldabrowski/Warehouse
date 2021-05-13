@@ -1,4 +1,4 @@
-package helpfulMethodsAndClasses;
+package utilities;
 import java.awt.Dimension;
 
 import javax.swing.JButton;

@@ -1,15 +1,14 @@
 package main;
 
-public class Thread2 extends Thread{
+public class DialogThread extends Thread {
 	
 	/**
 	 * Thread which invokes sign in dialog 
 	 */
 	@Override
 	public void run() {
-		Main.dialog = new SignIn2();
+		Main.dialog = new SignIn();
 		Main.dialog.setVisible(true);
-		
 		
 	while(Main.dialog.isEnabled()) {
 		try {

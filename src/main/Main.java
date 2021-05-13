@@ -1,7 +1,7 @@
 package main;
 
 import com.mysql.jdbc.Connection;
-import dbConnectionAndMethods.DB;
+import db.DB;
 import menu.Menu;
 
 import java.sql.PreparedStatement;
@@ -10,7 +10,7 @@ import java.sql.ResultSetMetaData;
 import java.util.TreeMap;
 
 public class Main extends Menu {
-	static SignIn2 dialog;
+	static SignIn dialog;
 	static TreeMap<String, String> userDataMap;
 	
 	/**
@@ -20,13 +20,9 @@ public class Main extends Menu {
 	public Main(TreeMap<String, String> map) {
 		super(map);		
 	}	
-	
-	/**
-	 * This method run the program
-	 * @param args
-	 */
+
 	public static void main(String[] args) {
-		Thread2 thread = new Thread2();
+		DialogThread thread = new DialogThread();
 		thread.start();		
 		
 		try {
@@ -47,15 +43,15 @@ public class Main extends Menu {
 	
 	/**
 	 * Method gets full information of user from database
-	 * @param user login from user input from {@link SignIn2} dialog
+	 * @param user login from user input from {@link SignIn} dialog
 	 * @return map with all user information
 	 */
 	private static TreeMap<String, String> getUserFromDB(String user) {
 		
 		Connection connection;
-		PreparedStatement statement = null;
-		ResultSet result=null;
-		ResultSetMetaData metaData = null;
+		PreparedStatement statement;
+		ResultSet result;
+		ResultSetMetaData metaData;
 		TreeMap<String, String> userData = new TreeMap<String, String>();
 		try {
 			connection = DB.getConnection();

@@ -1,11 +1,11 @@
-package ClosabelTabbedPane.frame;
+package closabeltabbedpane.frame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import ClosabelTabbedPane.tabbedpane.ClosableTabbedPane;
+import closabeltabbedpane.tabbedpane.ClosableTabbedPane;
 
 
 

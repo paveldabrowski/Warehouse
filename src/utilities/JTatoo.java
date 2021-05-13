@@ -1,4 +1,4 @@
-package helpfulMethodsAndClasses;
+package utilities;
 import java.awt.Rectangle;
 
 import javax.swing.*;
