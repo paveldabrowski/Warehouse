@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="EclipseModuleManager">
+    <libelement value="jar://$MODULE_DIR$/gson-2.8.5.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/commons-lang3-3.0.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/0.8/datafactory-0.8.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/ecj-4.6.1.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/jgoodies-forms-1.8.0.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/JTattoo-1.6.13.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/miglayout15-swing.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/mysql-connector-java-5.1.49.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/ojdbc8.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/ojdbc8-full/ons.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/ojdbc8-full/oraclepki.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/ojdbc8-full/orai18n.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/org.apache.log4j_1.2.15.v201012070815.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/ojdbc8-full/simplefan.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/swingx-all-1.6.4.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/ojdbc8-full/ucp.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/ojdbc8-full/xdb.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/JasperReport library/itext-2.1.7.js8.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/JasperReport library/bcprov-jdk15on-1.64.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/JasperReport library/castor-core-1.4.1.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/JasperReport library/castor-xml-1.4.1.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/JasperReport library/commons-beanutils-1.9.4.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/JasperReport library/commons-collections-3.2.2.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/JasperReport library/commons-collections4-4.2.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/JasperReport library/commons-digester-2.1.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/JasperReport library/commons-lang3-3.4.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/JasperReport library/commons-logging-1.1.1.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/JasperReport library/ecj-3.21.0.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/JasperReport library/jackson-annotations-2.10.0.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/JasperReport library/jackson-core-2.10.0.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/JasperReport library/jackson-databind-2.10.0.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/JasperReport library/javax.inject-1.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/JasperReport library/jcommon-1.0.23.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/JasperReport library/jfreechart-1.0.19.jar!/" />
+    <libelement value="jar://$MODULE_DIR$/JasperReport library/jasperreports-6.15.0.jar!/" />
+    <src_description expected_position="0">
+      <src_folder value="file://$MODULE_DIR$/src" expected_position="0" />
+      <src_folder value="file://$MODULE_DIR$/img" expected_position="1" />
+    </src_description>
+  </component>
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_11">
+    <output url="file://$MODULE_DIR$/bin" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/img" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="jdk" jdkName="JavaSE-1.8" jdkType="JavaSDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library name="gson-2.8.5.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/gson-2.8.5.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-lang3-3.0.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/commons-lang3-3.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="datafactory-0.8.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/0.8/datafactory-0.8.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="ecj-4.6.1.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/ecj-4.6.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jgoodies-forms-1.8.0.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/jgoodies-forms-1.8.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="JTattoo-1.6.13.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/JTattoo-1.6.13.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="miglayout15-swing.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/miglayout15-swing.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="mysql-connector-java-5.1.49.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/mysql-connector-java-5.1.49.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="ojdbc8.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/ojdbc8.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="ons.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/ojdbc8-full/ons.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="oraclepki.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/ojdbc8-full/oraclepki.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="orai18n.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/ojdbc8-full/orai18n.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="org.apache.log4j_1.2.15.v201012070815.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/org.apache.log4j_1.2.15.v201012070815.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="simplefan.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/ojdbc8-full/simplefan.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="swingx-all-1.6.4.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/swingx-all-1.6.4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="ucp.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/ojdbc8-full/ucp.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="xdb.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/ojdbc8-full/xdb.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="itext-2.1.7.js8.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/JasperReport library/itext-2.1.7.js8.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="bcprov-jdk15on-1.64.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/JasperReport library/bcprov-jdk15on-1.64.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="castor-core-1.4.1.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/JasperReport library/castor-core-1.4.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="castor-xml-1.4.1.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/JasperReport library/castor-xml-1.4.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-beanutils-1.9.4.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/JasperReport library/commons-beanutils-1.9.4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-collections-3.2.2.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/JasperReport library/commons-collections-3.2.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-collections4-4.2.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/JasperReport library/commons-collections4-4.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-digester-2.1.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/JasperReport library/commons-digester-2.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-lang3-3.4.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/JasperReport library/commons-lang3-3.4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-logging-1.1.1.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/JasperReport library/commons-logging-1.1.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="ecj-3.21.0.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/JasperReport library/ecj-3.21.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jackson-annotations-2.10.0.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/JasperReport library/jackson-annotations-2.10.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jackson-core-2.10.0.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/JasperReport library/jackson-core-2.10.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jackson-databind-2.10.0.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/JasperReport library/jackson-databind-2.10.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="javax.inject-1.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/JasperReport library/javax.inject-1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jcommon-1.0.23.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/JasperReport library/jcommon-1.0.23.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jfreechart-1.0.19.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/JasperReport library/jfreechart-1.0.19.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jasperreports-6.15.0.jar">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/JasperReport library/jasperreports-6.15.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+  </component>
+</module>

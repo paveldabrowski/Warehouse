@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="img"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="gson-2.8.5.jar"/>
+	<classpathentry kind="lib" path="commons-lang3-3.0.jar"/>
+	<classpathentry kind="lib" path="0.8/datafactory-0.8.jar"/>
+	<classpathentry kind="lib" path="ecj-4.6.1.jar"/>
+	<classpathentry kind="lib" path="jgoodies-forms-1.8.0.jar"/>
+	<classpathentry kind="lib" path="JTattoo-1.6.13.jar"/>
+	<classpathentry kind="lib" path="miglayout15-swing.jar"/>
+	<classpathentry kind="lib" path="mysql-connector-java-5.1.49.jar"/>
+	<classpathentry kind="lib" path="ojdbc8.jar"/>
+	<classpathentry kind="lib" path="ojdbc8-full/ons.jar"/>
+	<classpathentry kind="lib" path="ojdbc8-full/oraclepki.jar"/>
+	<classpathentry kind="lib" path="ojdbc8-full/orai18n.jar"/>
+	<classpathentry kind="lib" path="org.apache.log4j_1.2.15.v201012070815.jar"/>
+	<classpathentry kind="lib" path="ojdbc8-full/simplefan.jar"/>
+	<classpathentry kind="lib" path="swingx-all-1.6.4.jar"/>
+	<classpathentry kind="lib" path="ojdbc8-full/ucp.jar"/>
+	<classpathentry kind="lib" path="ojdbc8-full/xdb.jar"/>
+	<classpathentry kind="lib" path="JasperReport library/itext-2.1.7.js8.jar"/>
+	<classpathentry kind="lib" path="JasperReport library/bcprov-jdk15on-1.64.jar"/>
+	<classpathentry kind="lib" path="JasperReport library/castor-core-1.4.1.jar"/>
+	<classpathentry kind="lib" path="JasperReport library/castor-xml-1.4.1.jar"/>
+	<classpathentry kind="lib" path="JasperReport library/commons-beanutils-1.9.4.jar"/>
+	<classpathentry kind="lib" path="JasperReport library/commons-collections-3.2.2.jar"/>
+	<classpathentry kind="lib" path="JasperReport library/commons-collections4-4.2.jar"/>
+	<classpathentry kind="lib" path="JasperReport library/commons-digester-2.1.jar"/>
+	<classpathentry kind="lib" path="JasperReport library/commons-lang3-3.4.jar"/>
+	<classpathentry kind="lib" path="JasperReport library/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="JasperReport library/ecj-3.21.0.jar"/>
+	<classpathentry kind="lib" path="JasperReport library/jackson-annotations-2.10.0.jar"/>
+	<classpathentry kind="lib" path="JasperReport library/jackson-core-2.10.0.jar"/>
+	<classpathentry kind="lib" path="JasperReport library/jackson-databind-2.10.0.jar"/>
+	<classpathentry kind="lib" path="JasperReport library/javax.inject-1.jar"/>
+	<classpathentry kind="lib" path="JasperReport library/jcommon-1.0.23.jar"/>
+	<classpathentry kind="lib" path="JasperReport library/jfreechart-1.0.19.jar"/>
+	<classpathentry kind="lib" path="JasperReport library/jasperreports-6.15.0.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
