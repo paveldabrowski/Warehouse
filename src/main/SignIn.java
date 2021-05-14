@@ -50,7 +50,7 @@ public class SignIn extends JFrame {
 		
 		setAlwaysOnTop(true);
 		setBounds(new Rectangle(0, 0, 640, 425));
-		setTitle("Logowanie do programu");
+		setTitle("Your Warehouse");
 		
 		int height = Toolkit.getDefaultToolkit().getScreenSize().height;
 		int width = Toolkit.getDefaultToolkit().getScreenSize().width;
